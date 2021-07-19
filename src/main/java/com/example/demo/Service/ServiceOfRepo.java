@@ -1,7 +1,9 @@
 package com.example.demo.Service;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Repository.BillionaresRepo;
@@ -11,11 +13,14 @@ import dto.BillionareCreateDto;
 
 @Service
 public class ServiceOfRepo {
+	
 	private BillionaresRepo billionaresRepo;
+	
 	@Autowired
 	public ServiceOfRepo(BillionaresRepo billionaresRepo) {
 		this.billionaresRepo= billionaresRepo;
 		}
+	
 	@Transactional
 	public void save(BillionareCreateDto dto) throws Exception {
 		
@@ -41,11 +46,24 @@ public class ServiceOfRepo {
 		BillionarEntity billionare = billionaresRepo.find(id);
 		billionaresRepo.update(billionare);
 	}
-	public BillionarEntity find(Long id) {
-		return billionaresRepo.find(id);
+	public BillionarEntity find(Long id) throws Exception {
+		try {
+			return billionaresRepo.find(id);
+		} catch(NoResultException e) {
+			throw new Exception("Not found");
+		}
 	}
+	
 	@Transactional
-	public void delete(Long id) {
+	public void delete(Long id) throws Exception {
+		try {
+			billionaresRepo.find(id);
+		} catch(NoResultException e) {
+			throw new Exception("Not found");
+		}catch (EmptyResultDataAccessException e) {
+			throw new Exception("Not found");
+		}
+		
 		billionaresRepo.delete(billionaresRepo.find(id));
 	}
 }

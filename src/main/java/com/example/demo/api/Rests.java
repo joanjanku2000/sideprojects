@@ -24,7 +24,7 @@ public class Rests {
 	private ServiceOfRepo service;
 	
 	@GetMapping("/find/{id}")
-	public ResponseEntity<BillionarEntity>findById(@PathVariable Long id){
+	public ResponseEntity<BillionarEntity>findById(@PathVariable Long id) throws Exception{
 		return new ResponseEntity<BillionarEntity>(service.find(id),HttpStatus.OK);
 	}
 	
@@ -35,7 +35,7 @@ public class Rests {
 	}
 	@DeleteMapping("/delete")
 	@ResponseStatus(HttpStatus.OK)
-	public void delete(@RequestParam long id) {
+	public void delete(@RequestParam long id) throws Exception {
 		service.delete(id);
 	}
 
