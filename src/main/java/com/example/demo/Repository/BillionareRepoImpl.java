@@ -11,7 +11,7 @@ public class BillionareRepoImpl implements BillionaresRepo{
 	
 	@Autowired
 	private EntityManager em;
-	private static String FIND_BY_ID = "Select be from BillionarEntity be where be.id = ?1";
+	private static String FIND_BY_ID = "Select b from BillionarEntity b where b.id = ?1";
 	
 	@Override
 	public void save(BillionarEntity entity) {
