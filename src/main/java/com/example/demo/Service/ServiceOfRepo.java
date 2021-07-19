@@ -44,6 +44,8 @@ public class ServiceOfRepo {
 	public BillionarEntity find(Long id) {
 		return billionaresRepo.find(id);
 	}
-	
-
+	@Transactional
+	public void delete(Long id) {
+		billionaresRepo.delete(billionaresRepo.find(id));
+	}
 }

@@ -27,7 +27,7 @@ public class BillionareRepoImpl implements BillionaresRepo{
 	public void delete(BillionarEntity entity) {
 		em.remove(entity);
 	}
-	
+	@Override
 	public BillionarEntity find(Long id) {
 		return (BillionarEntity) em.createQuery(FIND_BY_ID)
 				.setParameter(1, id)
